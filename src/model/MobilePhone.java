@@ -6,7 +6,7 @@ public class MobilePhone extends ElectronicDevice{
     public MobilePhone() {
     }
 
-    public MobilePhone(int id, String name, double cost, String color, double quantity, String screenType) {
+    public MobilePhone(int id, String name, double cost, String color, int quantity, String screenType) {
         super(id, name, cost, color, quantity);
         this.screenType = screenType;
     }

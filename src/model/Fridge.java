@@ -3,7 +3,7 @@ package model;
 public class Fridge extends ElectronicDevice{
     private String cooling;
     public Fridge(){};
-    public Fridge(int id, String name, double cost, String color, double quantity, String cooling) {
+    public Fridge(int id, String name, double cost, String color, int quantity, String cooling) {
         super(id, name, cost, color, quantity);
         this.cooling = cooling;
     }
@@ -30,6 +30,6 @@ public class Fridge extends ElectronicDevice{
 
     @Override
     public double getAmount() {
-        return 0;
+        return getCost()*getQuantity();
     }
 }

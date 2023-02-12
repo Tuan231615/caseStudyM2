@@ -7,12 +7,12 @@ public abstract class ElectronicDevice implements Discount, Serializable {
     private String name;
     private double cost;
     private String color;
-    private double quantity;
+    private int quantity;
 
     public ElectronicDevice() {
     }
 
-    public ElectronicDevice(int id, String name, double cost, String color, double quantity) {
+    public ElectronicDevice(int id, String name, double cost, String color, int quantity) {
         this.id = id;
         this.name = name;
         this.cost = cost;
@@ -56,7 +56,7 @@ public abstract class ElectronicDevice implements Discount, Serializable {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

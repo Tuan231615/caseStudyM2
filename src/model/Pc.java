@@ -6,7 +6,7 @@ public class Pc extends ElectronicDevice{
     public Pc() {
     }
 
-    public Pc(int id, String name, double cost, String color, double quantity, String card) {
+    public Pc(int id, String name, double cost, String color, int quantity, String card) {
         super(id, name, cost, color, quantity);
         this.card = card;
     }
