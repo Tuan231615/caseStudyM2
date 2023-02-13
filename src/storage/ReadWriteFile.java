@@ -1,5 +1,6 @@
 package storage;
 
+import controller.ElectronicManager;
 import model.ElectronicDevice;
 
 import java.io.*;
@@ -12,13 +13,13 @@ public class ReadWriteFile {
 
     private static ReadWriteFile instance;
 
-    private static ReadWriteFile getInstance() {
+    public static ReadWriteFile getInstance() {
         if (instance == null) {
             return instance = new ReadWriteFile();
         }
         return instance;
     }
-    
+
     public boolean writeToFile(List<ElectronicDevice> electronicDevices) {
         File file = new File("ElectronicDevice.dat");
         FileOutputStream fileOutputStream;
@@ -28,7 +29,8 @@ public class ReadWriteFile {
             throw new RuntimeException(e);
         }
         try {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(bufferedOutputStream);
             objectOutputStream.writeObject(electronicDevices);
             objectOutputStream.close();
             fileOutputStream.close();
@@ -40,27 +42,25 @@ public class ReadWriteFile {
 
     public List<ElectronicDevice> readToFile() {
         File file = new File("ElectronicDevice.dat");
-        InputStream inputStream = null;
+        List<ElectronicDevice> electronicDevices;
+        FileInputStream fileInputStream;
         try {
-            inputStream = new FileInputStream(file);
+             fileInputStream = new FileInputStream(file);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        ObjectInputStream objectInputStream = null;
         try {
-            objectInputStream = new ObjectInputStream(inputStream);
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+                ObjectInputStream objectInputStream = new ObjectInputStream(bufferedInputStream);
+            try {
+                electronicDevices = ((List<ElectronicDevice>) objectInputStream.readObject());
+
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            if (objectInputStream != null) {
-                List<ElectronicDevice> electronicDevices = null;
-                try {
-                    electronicDevices = (List<ElectronicDevice>) objectInputStream.readObject();
-                } catch (IOException | ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
-                return electronicDevices;
-            } else return new ArrayList<>();
-        }
+                throw new RuntimeException(e);
+            }
+        return electronicDevices;
     }
 }

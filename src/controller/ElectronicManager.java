@@ -4,20 +4,27 @@ import model.ElectronicDevice;
 import model.Fridge;
 import model.MobilePhone;
 import model.Pc;
-
-import java.util.ArrayList;
+import storage.ReadWriteFile;
 import java.util.List;
 import java.util.Scanner;
 
 public class ElectronicManager {
-    List<ElectronicDevice> electronicDevices;
+    private static ElectronicManager instance;
+    private final List<ElectronicDevice> electronicDevices;
 
-    public ElectronicManager() {
-        electronicDevices = new ArrayList<>();
+    private ElectronicManager() {
+        this.electronicDevices = ReadWriteFile.getInstance().readToFile();
     }
 
-    public ElectronicManager(List<ElectronicDevice> electronicDevices) {
-        this.electronicDevices = electronicDevices;
+    public static ElectronicManager getInstance() {
+        if (instance == null) {
+            instance = new ElectronicManager();
+        }
+        return instance;
+    }
+
+    public List<ElectronicDevice> getElectronicDevices() {
+        return electronicDevices;
     }
 
     //CRUD
@@ -81,7 +88,8 @@ public class ElectronicManager {
     // them phan tu------------------
 
     public void addElement(ElectronicDevice electronicDevice) {
-        electronicDevices.add(electronicDevice);
+        instance.electronicDevices.add(electronicDevice);
+        ReadWriteFile.getInstance().writeToFile(electronicDevices);
     }
 
     //----------------------------------------------------//
@@ -139,6 +147,7 @@ public class ElectronicManager {
         } else {
             electronicDevices.remove(electronicDevices.size() - 1);
         }
+        ReadWriteFile.getInstance().writeToFile(electronicDevices);
     }
     //---------------------------------------------------//
 }

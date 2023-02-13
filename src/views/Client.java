@@ -12,8 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Client {
-    public static List<ElectronicDevice> electronicDevices = new ArrayList<>();
-    public static ElectronicManager admin = new ElectronicManager(electronicDevices);
+    public static ElectronicManager admin = ElectronicManager.getInstance();
     public static Scanner checkInput = new Scanner(System.in);
     public static int inPut;
 
