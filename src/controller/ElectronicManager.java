@@ -69,17 +69,16 @@ public class ElectronicManager {
         }
         return totalPriceFridgeSale;
     }
+
     //-------------------------------------------//
     //tong tien cua tat ca san pham
     public double priceElectronicDevice() {
         double priceElectronicDevice = 0;
-        for (ElectronicDevice e :
-                electronicDevices) {
-            priceElectronicDevice += totalPriceFridge() + totalPricePc() + totalPriceMobilePhone();
-        }
+        priceElectronicDevice += totalPriceFridge() + totalPricePc() + totalPriceMobilePhone();
         return priceElectronicDevice;
     }
-    Scanner scanner = new Scanner(System.in);// them phan tu------------------
+
+    // them phan tu------------------
 
     public void addElement(ElectronicDevice electronicDevice) {
         electronicDevices.add(electronicDevice);
@@ -99,64 +98,34 @@ public class ElectronicManager {
         System.out.println("Moi ban nhap id san pham: ");
         int id = scanner.nextInt();
         for (ElectronicDevice e : electronicDevices) {
+            System.out.println("Moi ban nhap id tu lanh: ");
+            newId = scanner.nextInt();
+            System.out.println("Moi ban nhap ten san pham: ");
+            newName = scanner.nextLine();
+            System.out.println("Moi ban nhap gia san pham: ");
+            newCost = scanner.nextDouble();
+            System.out.println("Moi ban nhap mau san pham: ");
+            newColor = scanner.nextLine();
+            System.out.println("Moi ban nhap so luong san pham: ");
+            newQuantity = scanner.nextInt();
+            e.setId(newId);
+            e.setName(newName);
+            e.setCost(newCost);
+            e.setColor(newColor);
+            e.setQuantity(newQuantity);
             if (id == e.getId()) {
                 if (e instanceof Fridge) {
-                    System.out.println("Moi ban nhap id tu lanh: ");
-                    newId = scanner.nextInt();
-                    System.out.println("Moi ban nhap ten san pham: ");
-                    newName = scanner.nextLine();
-                    System.out.println("Moi ban nhap gia san pham: ");
-                    newCost = scanner.nextDouble();
-                    System.out.println("Moi ban nhap mau san pham: ");
-                    newColor = scanner.nextLine();
-                    System.out.println("Moi ban nhap so luong san pham: ");
-                    newQuantity = scanner.nextInt();
                     System.out.println("Moi ban nhap kieu tu lanh: ");
                     newCooling = scanner.nextLine();
-                    e.setId(newId);
-                    e.setName(newName);
-                    e.setCost(newCost);
-                    e.setColor(newColor);
-                    e.setQuantity(newQuantity);
                     ((Fridge) e).setCooling(newCooling);
                 } else if (e instanceof Pc) {
-                    System.out.println("Moi ban nhap id san pham: ");
-                    newId = scanner.nextInt();
-                    System.out.println("Moi ban nhap ten san pham: ");
-                    newName = scanner.nextLine();
-                    System.out.println("Moi ban nhap gia san pham: ");
-                    newCost = scanner.nextDouble();
-                    System.out.println("Moi ban nhap mau san pham: ");
-                    newColor = scanner.nextLine();
-                    System.out.println("Moi ban nhap so luong san pham: ");
-                    newQuantity = scanner.nextInt();
                     System.out.println("Moi ban nhap kieu card: ");
                     newCard = scanner.nextLine();
-                    e.setId(newId);
-                    e.setName(newName);
-                    e.setCost(newCost);
-                    e.setColor(newColor);
-                    e.setQuantity(newQuantity);
                     ((Pc) e).setCard(newCard);
-                } else if (e instanceof MobilePhone){
-                    System.out.println("Moi ban nhap id san pham: ");
-                    newId = scanner.nextInt();
-                    System.out.println("Moi ban nhap ten san pham: ");
-                    newName = scanner.nextLine();
-                    System.out.println("Moi ban nhap gia san pham: ");
-                    newCost = scanner.nextDouble();
-                    System.out.println("Moi ban nhap mau san pham: ");
-                    newColor = scanner.nextLine();
-                    System.out.println("Moi ban nhap so luong san pham: ");
-                    newQuantity = scanner.nextInt();
+                } else if (e instanceof MobilePhone) {
                     System.out.println("Moi ban nhap kieu man hinh: ");
                     newScreenType = scanner.nextLine();
-                    e.setId(newId);
-                    e.setName(newName);
-                    e.setCost(newCost);
-                    e.setColor(newColor);
-                    e.setQuantity(newQuantity);
-                    ((MobilePhone)e).setScreenType(newScreenType);
+                    ((MobilePhone) e).setScreenType(newScreenType);
                 }
             }
         }
