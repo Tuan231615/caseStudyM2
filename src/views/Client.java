@@ -5,41 +5,48 @@ import model.ElectronicDevice;
 import model.Fridge;
 import model.MobilePhone;
 import model.Pc;
+import storage.ReadWriteFile;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Client {
-    public static List<ElectronicDevice> electronicDevices= new ArrayList<>();
+    public static List<ElectronicDevice> electronicDevices = new ArrayList<>();
     public static ElectronicManager admin = new ElectronicManager(electronicDevices);
     public static Scanner checkInput = new Scanner(System.in);
     public static int inPut;
 
     public static void main(String[] args) {
         do {
-            System.out.println("------------------Mune---------------------");
-            System.out.println("1. Danh sach san pham");
-            System.out.println("2. Tong tien thanh toan");
-
-            System.out.println("3. Them san pham");
-            System.out.println("4. Sua san pham");
-            System.out.println("5. Xoa san pham");
-            System.out.println("0. Thoat chuong trinh");
+            System.out.println("------------------Menu---------------------");
             System.out.println("Moi ban chon: ");
             inPut = checkInput.nextInt();
-            switch (inPut){
-                case 1: admin.display();
-                case 2: admin.priceElectronicDevice();
-                case 3: admin.addElement(addElectronicDevice());
-                case 4: admin.editElement(checkInput);
-                case 5: admin.deleteElement();
-                case 0: System.exit(inPut);
+            switch (inPut) {
+                case 1:
+                    System.out.println("1. Danh sach san pham");
+                    admin.display();
+                case 2:
+                    System.out.println("2. Tong tien thanh toan");
+                    admin.priceElectronicDevice();
+                case 3:
+                    System.out.println("3. Them san pham");
+                    admin.addElement(addElectronicDevice());
+                case 4:
+                    System.out.println("4. Sua san pham");
+                    admin.editElement(checkInput);
+                case 5:
+                    System.out.println("5. Xoa san pham");
+                    admin.deleteElement();
+                case 0:
+                    System.out.println("0. Thoat chuong trinh");
+                    System.exit(inPut);
                 default:
                     System.out.println("Nhap sai du lieu roi");
             }
-        }while (true);
+        } while (true);
     }
+
     public static ElectronicDevice addElectronicDevice() {
         System.out.println("Ban muon them san pham nao? ");
         System.out.println("1. Them dien thoai: ");
@@ -91,15 +98,16 @@ public class Client {
                 String color = checkInput.nextLine();
                 System.out.println("Nhap so luong tu lanh: ");
                 int quantity = checkInput.nextInt();
-                String d =checkInput.nextLine();
+                String d = checkInput.nextLine();
                 System.out.println("nhap loai tu lanh: ");
                 String cooling = checkInput.nextLine();
                 return new Fridge(id, name, cost, color, quantity, cooling);
             }
-            case 0: System.exit(inPut);
+            case 0:
+                System.exit(inPut);
             default:
                 System.out.println("Nhap sai du lieu roi");
         }
-        return null;
+        return addElectronicDevice();
     }
 }
