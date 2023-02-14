@@ -11,14 +11,14 @@ import java.util.Scanner;
 public class Client {
     public static ElectronicManager admin = ElectronicManager.getInstance();
     public static Scanner checkInput = new Scanner(System.in);
-    public static int inPut;
+    public static int inPut = -1;
 
     public static void main(String[] args) {
-        menuStaff();
+        menuManage();
     }
 
     public static void menuManage() {
-        do {
+        while (inPut != 0) {
             System.out.println("------------------Menu của quản lý---------------------");
             System.out.println("Your choise: ");
             System.out.println("1. Danh sách sản phẩm: ");
@@ -26,6 +26,7 @@ public class Client {
             System.out.println("3. Thêm sản phẩm: ");
             System.out.println("4. Sửa sản phẩm: ");
             System.out.println("5. Xoá sản phẩm: ");
+            System.out.println("6. tim kiem san pham: ");
             System.out.println("0. Thoát chương trình: ");
             inPut = Integer.parseInt(checkInput.nextLine());
             switch (inPut) {
@@ -35,7 +36,7 @@ public class Client {
                     break;
                 case 2:
 
-                    System.out.println(admin.totalPricePc());
+                    System.out.println(admin.priceElectronicDevice());
                     break;
                 case 3:
 
@@ -49,17 +50,20 @@ public class Client {
 
                     admin.deleteElement();
                     break;
+                case 6:
+                    admin.searchElement(checkInput);
+                    break;
                 case 0:
 
                     System.exit(inPut);
                 default:
                     System.out.println("Nhập sai dữ liệu");
             }
-        } while (true);
+        }
     }
 
     public static void menuStaff() {
-        do {
+        while (inPut != 0) {
             System.out.println("------------------Menu nhan vien-----------------------");
             System.out.println("Your choise: ");
             System.out.println("1. Danh sách sản phẩm: ");
@@ -81,7 +85,7 @@ public class Client {
                 default:
                     System.out.println("Lỗi nhập.");
             }
-        } while (true);
+        }
     }
 
     public static ElectronicDevice addElectronicDevice() {

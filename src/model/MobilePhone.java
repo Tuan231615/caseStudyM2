@@ -33,10 +33,10 @@ public class MobilePhone extends ElectronicDevice {
 
     @Override
     public double getRealMoney() {
-        if (getColor().equals("mau do")) {
-            return getAmount() - (getAmount() * 0.1);
-        } else if (getColor().equals("mau den")) {
-            return getAmount() - (getAmount() * 0.2);
+        if (getColor().equalsIgnoreCase("mau do")) {
+            return (getAmount() - (getAmount() * 0.1));
+        } else if (getColor().equalsIgnoreCase("mau den")) {
+            return (getAmount() - (getAmount() * 0.2));
         } else
             return 0;
     }

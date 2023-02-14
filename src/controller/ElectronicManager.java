@@ -5,6 +5,8 @@ import model.Fridge;
 import model.MobilePhone;
 import model.Pc;
 import storage.ReadWriteFile;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -134,6 +136,7 @@ public class ElectronicManager {
                 }
             }
         }
+        ReadWriteFile.getInstance().writeToFile(electronicDevices);
     }
 
     //--------------------------------------------------//
@@ -147,4 +150,17 @@ public class ElectronicManager {
         ReadWriteFile.getInstance().writeToFile(electronicDevices);
     }
     //---------------------------------------------------//
+    //tim kiem theo id
+    public void searchElement(Scanner scanner){
+        System.out.println("Moi ban nhap ten san pham: ");
+        String searhString =  scanner.nextLine();
+        for (ElectronicDevice i:
+             electronicDevices) {
+            if (searhString.equalsIgnoreCase(i.getName())){
+                System.out.println("Vi tri san pham can tim la: " + i.getId());
+            } else{
+                System.out.println("Khong tim thay phan tu");
+            }
+        }
+    }
 }
