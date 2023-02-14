@@ -12,6 +12,8 @@ public abstract class ElectronicDevice implements Discount, Serializable {
     public ElectronicDevice() {
     }
 
+
+
     public ElectronicDevice(int id, String name, double cost, String color, int quantity) {
         this.id = id;
         this.name = name;
@@ -61,4 +63,14 @@ public abstract class ElectronicDevice implements Discount, Serializable {
     }
 
     public abstract double getAmount();
+    @Override
+    public String toString() {
+        return "ElectronicDevice{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", cost=" + cost +
+                ", color='" + color + '\'' +
+                ", quantity=" + quantity +
+                '}';
+    }
 }

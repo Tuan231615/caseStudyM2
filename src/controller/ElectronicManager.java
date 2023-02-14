@@ -43,12 +43,11 @@ public class ElectronicManager {
                 electronicDevices) {
             if (electronicDevice instanceof MobilePhone) {
                 priceMobilePhone += electronicDevice.getRealMoney();
-                totalPriceMobilePhoneSale += (electronicDevice.getAmount() - electronicDevice.getRealMoney());
+                totalPriceMobilePhoneSale += (electronicDevice.getAmount() - priceMobilePhone);
             }
         }
         return totalPriceMobilePhoneSale;
     }
-
     //------------------tinh tong tien cua may tinh
     public double totalPricePc() {
         double pricePc = 0;
@@ -57,7 +56,7 @@ public class ElectronicManager {
                 electronicDevices) {
             if (electronicDevice instanceof Pc) {
                 pricePc += electronicDevice.getRealMoney();
-                totalPricePcSale += (electronicDevice.getAmount() - electronicDevice.getRealMoney());
+                totalPricePcSale += (electronicDevice.getAmount() - pricePc);
             }
         }
         return totalPricePcSale;
@@ -65,12 +64,10 @@ public class ElectronicManager {
 
     //-----------------------------tinh tong tien cua tu lanh
     public double totalPriceFridge() {
-        double priceFridge = 0;
         double totalPriceFridgeSale = 0;
         for (ElectronicDevice electronicDevice :
                 electronicDevices) {
             if (electronicDevice instanceof Fridge) {
-                priceFridge += electronicDevice.getRealMoney();
                 totalPriceFridgeSale += (electronicDevice.getAmount() - electronicDevice.getRealMoney());
             }
         }
@@ -88,7 +85,7 @@ public class ElectronicManager {
     // them phan tu------------------
 
     public void addElement(ElectronicDevice electronicDevice) {
-        instance.electronicDevices.add(electronicDevice);
+        electronicDevices.add(electronicDevice);
         ReadWriteFile.getInstance().writeToFile(electronicDevices);
     }
 
@@ -103,19 +100,19 @@ public class ElectronicManager {
         String newCooling;
         String newScreenType;
         String newCard;
-        System.out.println("Moi ban nhap id san pham: ");
-        int id = scanner.nextInt();
+        System.out.println("Mởi bạn nhập id sản phẩm: ");
+        int id = Integer.parseInt(scanner.nextLine());
         for (ElectronicDevice e : electronicDevices) {
-            System.out.println("Moi ban nhap id tu lanh: ");
-            newId = scanner.nextInt();
-            System.out.println("Moi ban nhap ten san pham: ");
+            System.out.println("Mời bạn nhập id : ");
+            newId = Integer.parseInt(scanner.nextLine());
+            System.out.println("Mời bạn nhập tên: ");
             newName = scanner.nextLine();
-            System.out.println("Moi ban nhap gia san pham: ");
-            newCost = scanner.nextDouble();
-            System.out.println("Moi ban nhap mau san pham: ");
+            System.out.println("Mời bạn nhập giá: ");
+            newCost = Double.parseDouble(scanner.nextLine());
+            System.out.println("Mời bạn nhập màu: ");
             newColor = scanner.nextLine();
-            System.out.println("Moi ban nhap so luong san pham: ");
-            newQuantity = scanner.nextInt();
+            System.out.println("Mời bạn nhập số lượng: ");
+            newQuantity = Integer.parseInt(scanner.nextLine());
             e.setId(newId);
             e.setName(newName);
             e.setCost(newCost);
@@ -123,15 +120,15 @@ public class ElectronicManager {
             e.setQuantity(newQuantity);
             if (id == e.getId()) {
                 if (e instanceof Fridge) {
-                    System.out.println("Moi ban nhap kieu tu lanh: ");
+                    System.out.println("Mời bạn nhập kiểu tủ lạnh: ");
                     newCooling = scanner.nextLine();
                     ((Fridge) e).setCooling(newCooling);
                 } else if (e instanceof Pc) {
-                    System.out.println("Moi ban nhap kieu card: ");
+                    System.out.println("Mời bạn nhâp kiểu card của pc: ");
                     newCard = scanner.nextLine();
                     ((Pc) e).setCard(newCard);
                 } else if (e instanceof MobilePhone) {
-                    System.out.println("Moi ban nhap kieu man hinh: ");
+                    System.out.println("Mời bạn nhập kiểu màn hình của điện thoại: ");
                     newScreenType = scanner.nextLine();
                     ((MobilePhone) e).setScreenType(newScreenType);
                 }

@@ -1,8 +1,11 @@
 package model;
 
-public class Fridge extends ElectronicDevice{
+public class Fridge extends ElectronicDevice {
     private String cooling;
-    public Fridge(){};
+
+    public Fridge() {
+    }
+
     public Fridge(int id, String name, double cost, String color, int quantity, String cooling) {
         super(id, name, cost, color, quantity);
         this.cooling = cooling;
@@ -19,17 +22,25 @@ public class Fridge extends ElectronicDevice{
     @Override
     public String toString() {
         return "Fridge{" +
-                "cooling='" + cooling + '\'' +
+                "id=" + getId() +
+                ", name='" + getName() + '\'' +
+                ", cost=" + getCost() +
+                ", color='" + getColor() + '\'' +
+                ", quantity=" + getQuantity() +
+                "cooling='" + getCooling() + '\'' +
                 '}';
     }
 
     @Override
     public double getRealMoney() {
-        return 0;
+        if (getCooling().equals("tu dung")) {
+            return getAmount() - (getAmount() * 0.15);
+
+        } else return 0;
     }
 
     @Override
     public double getAmount() {
-        return getCost()*getQuantity();
+        return getCost() * getQuantity();
     }
 }

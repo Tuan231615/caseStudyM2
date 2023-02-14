@@ -22,12 +22,22 @@ public class Pc extends ElectronicDevice{
     @Override
     public String toString() {
         return "Pc{" +
+                "id=" + getId() +
+                ", name='" + getName() + '\'' +
+                ", cost=" + getCost() +
+                ", color='" + getColor() + '\'' +
+                ", quantity=" + getQuantity() + '\'' +
                 "card='" + card + '\'' +
                 '}';
     }
 
     @Override
     public double getRealMoney() {
+        if (getCard().equalsIgnoreCase("gtx1650")){
+            return (getAmount() - getAmount()*0.2);
+        } else if (getCard().equalsIgnoreCase("gtx1060")) {
+            return (getAmount()- getAmount()*0.5);
+        }
         return 0;
     }
 

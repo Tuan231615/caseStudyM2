@@ -1,6 +1,6 @@
 package model;
 
-public class MobilePhone extends ElectronicDevice{
+public class MobilePhone extends ElectronicDevice {
     private String screenType;
 
     public MobilePhone() {
@@ -22,13 +22,23 @@ public class MobilePhone extends ElectronicDevice{
     @Override
     public String toString() {
         return "MobilePhone{" +
+                "id=" + getId() +
+                ", name='" + getName() + '\'' +
+                ", cost=" + getCost() +
+                ", color='" + getColor() + '\'' +
+                ", quantity=" + getQuantity() +
                 "screenType='" + screenType + '\'' +
                 '}';
     }
 
     @Override
     public double getRealMoney() {
-        return 0;
+        if (getColor().equals("mau do")) {
+            return getAmount() - (getAmount() * 0.1);
+        } else if (getColor().equals("mau den")) {
+            return getAmount() - (getAmount() * 0.2);
+        } else
+            return 0;
     }
 
     @Override

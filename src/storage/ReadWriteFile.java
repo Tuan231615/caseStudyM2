@@ -1,6 +1,5 @@
 package storage;
 
-import controller.ElectronicManager;
 import model.ElectronicDevice;
 
 import java.io.*;
@@ -20,47 +19,65 @@ public class ReadWriteFile {
         return instance;
     }
 
-    public boolean writeToFile(List<ElectronicDevice> electronicDevices) {
-        File file = new File("ElectronicDevice.dat");
-        FileOutputStream fileOutputStream;
+    public void writeToFile(List<ElectronicDevice> electronicDevices) {
+        File file = new File("test.txt");
+        OutputStream outputStream = null;
         try {
-            fileOutputStream = new FileOutputStream(file);
+            outputStream = new FileOutputStream(file);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+        ObjectOutputStream objectOutputStream = null;
         try {
-            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(bufferedOutputStream);
+            objectOutputStream = new ObjectOutputStream(outputStream);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
             objectOutputStream.writeObject(electronicDevices);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
             objectOutputStream.close();
-            fileOutputStream.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return true;
+        try {
+            outputStream.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
-
     public List<ElectronicDevice> readToFile() {
-        File file = new File("ElectronicDevice.dat");
-        List<ElectronicDevice> electronicDevices;
-        FileInputStream fileInputStream;
+        InputStream inputStream = null;
         try {
-             fileInputStream = new FileInputStream(file);
+            inputStream = new FileInputStream("test.txt");
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
+        ObjectInputStream objectInputStream = null;
         try {
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
-                ObjectInputStream objectInputStream = new ObjectInputStream(bufferedInputStream);
-            try {
-                electronicDevices = ((List<ElectronicDevice>) objectInputStream.readObject());
-
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
+            objectInputStream = new ObjectInputStream(inputStream);
         } catch (IOException e) {
-                throw new RuntimeException(e);
+            throw new RuntimeException(e);
+        } finally {
+            if (objectInputStream != null) {
+                List<ElectronicDevice> electronicDevices;
+                try {
+                    electronicDevices = (List<ElectronicDevice>) objectInputStream.readObject();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+
+                }
+                return electronicDevices;
+            } else {
+                return new ArrayList<>();
             }
-        return electronicDevices;
+        }
+
     }
+
 }
