@@ -1,5 +1,6 @@
 package views;
 
+import login.Email;
 import controller.ElectronicManager;
 import model.ElectronicDevice;
 import model.Fridge;
@@ -12,11 +13,30 @@ public class Client {
     public static ElectronicManager admin = ElectronicManager.getInstance();
     public static Scanner checkInput = new Scanner(System.in);
     public static int inPut = -1;
-
+    private static Email email1 = new Email();
+    public static final String[] validEmail = new String[]{"trieu@gmail.com"};
+    public static final String[] password = new String[] {"123456"};
     public static void main(String[] args) {
-        menuManage();
+        login();
     }
+    public static void login(){
+        while (inPut != 0){
+            System.out.println("-----Login-----");
+            System.out.println("1. Nhập tên tài khoản: ");
+            for (String s : validEmail) {
+                boolean isValid = email1.validate(s);
+                String[] acc = {""};
+                acc[0] = checkInput.nextLine();
+                if (isValid && s.equals(acc[0])){
+                    menuManage();
+                }
+                else {menuStaff();}
+            }
+            System.out.println("2. Nhap mat khau: ");
 
+        }
+
+    }
     public static void menuManage() {
         while (inPut != 0) {
             System.out.println("------------------Menu của quản lý---------------------");
@@ -149,6 +169,4 @@ public class Client {
         }
         return addElectronicDevice();
     }
-
-
 }
