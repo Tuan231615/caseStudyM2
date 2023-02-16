@@ -6,9 +6,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadWriteFile {
-    private ReadWriteFile() {
-    }
+public class ReadWriteFile implements InReadWriteFile{
+    private  ReadWriteFile() {}
 
     private static ReadWriteFile instance;
 
@@ -18,7 +17,6 @@ public class ReadWriteFile {
         }
         return instance;
     }
-
     public void writeToFile(List<ElectronicDevice> electronicDevices) {
         File file = new File("test.txt");
         OutputStream outputStream = null;

@@ -26,8 +26,8 @@ public class MobilePhone extends ElectronicDevice {
                 ", name='" + getName() + '\'' +
                 ", cost=" + getCost() +
                 ", color='" + getColor() + '\'' +
-                ", quantity=" + getQuantity() +
-                "screenType='" + screenType + '\'' +
+                ", quantity=" + getQuantity() + '\'' +
+                ", screenType='" + screenType + '\'' +
                 '}';
     }
 

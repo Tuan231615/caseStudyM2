@@ -4,18 +4,17 @@ import model.ElectronicDevice;
 import model.Fridge;
 import model.MobilePhone;
 import model.Pc;
+import storage.InReadWriteFile;
 import storage.ReadWriteFile;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class ElectronicManager {
     private static ElectronicManager instance;
     private final List<ElectronicDevice> electronicDevices;
-
+    private final InReadWriteFile readWriteFile = ReadWriteFile.getInstance();
     private ElectronicManager() {
-        this.electronicDevices = ReadWriteFile.getInstance().readToFile();
+        this.electronicDevices = readWriteFile.readToFile();
     }
 
     public static ElectronicManager getInstance() {
@@ -88,7 +87,7 @@ public class ElectronicManager {
 
     public void addElement(ElectronicDevice electronicDevice) {
         electronicDevices.add(electronicDevice);
-        ReadWriteFile.getInstance().writeToFile(electronicDevices);
+        readWriteFile.writeToFile(electronicDevices);
     }
 
     //----------------------------------------------------//
@@ -136,7 +135,7 @@ public class ElectronicManager {
                 }
             }
         }
-        ReadWriteFile.getInstance().writeToFile(electronicDevices);
+        readWriteFile.writeToFile(electronicDevices);
     }
 
     //--------------------------------------------------//
@@ -147,20 +146,19 @@ public class ElectronicManager {
         } else {
             electronicDevices.remove(electronicDevices.size() - 1);
         }
-        ReadWriteFile.getInstance().writeToFile(electronicDevices);
+        readWriteFile   .writeToFile(electronicDevices);
     }
     //---------------------------------------------------//
     //tim kiem theo id
-    public void searchElement(Scanner scanner){
-        System.out.println("Moi ban nhap ten san pham: ");
+    public String searchElement(Scanner scanner){
+        System.out.println("Mời bạn nhập tên sản phẩm: ");
         String searhString =  scanner.nextLine();
-        for (ElectronicDevice i:
-             electronicDevices) {
-            if (searhString.equalsIgnoreCase(i.getName())){
-                System.out.println("Vi tri san pham can tim la: " + i.getId());
-            } else{
-                System.out.println("Khong tim thay phan tu");
+        for (ElectronicDevice i: electronicDevices) {
+            if (searhString.equalsIgnoreCase(i.getName())) {
+                System.out.println("Sản phẩm là: " + i);
+                break;
             }
         }
+        return "Không tìm thấy sản phẩm";
     }
 }

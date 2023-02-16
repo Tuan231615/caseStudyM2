@@ -27,7 +27,7 @@ public class Pc extends ElectronicDevice{
                 ", cost=" + getCost() +
                 ", color='" + getColor() + '\'' +
                 ", quantity=" + getQuantity() + '\'' +
-                "card='" + card + '\'' +
+                ", card='" + card + '\'' +
                 '}';
     }
 

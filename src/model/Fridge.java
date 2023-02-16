@@ -26,8 +26,8 @@ public class Fridge extends ElectronicDevice {
                 ", name='" + getName() + '\'' +
                 ", cost=" + getCost() +
                 ", color='" + getColor() + '\'' +
-                ", quantity=" + getQuantity() +
-                "cooling='" + getCooling() + '\'' +
+                ", quantity=" + getQuantity() + '\'' +
+                ", cooling='" + getCooling() + '\'' +
                 '}';
     }
 

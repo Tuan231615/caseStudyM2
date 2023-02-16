@@ -2,11 +2,15 @@ package views;
 
 import login.Email;
 import controller.ElectronicManager;
+import login.Password;
 import model.ElectronicDevice;
 import model.Fridge;
 import model.MobilePhone;
 import model.Pc;
+import storage.InReadWriteFile;
+import storage.ReadWriteFile;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Client {
@@ -14,29 +18,13 @@ public class Client {
     public static Scanner checkInput = new Scanner(System.in);
     public static int inPut = -1;
     private static Email email1 = new Email();
-    public static final String[] validEmail = new String[]{"trieu@gmail.com"};
-    public static final String[] password = new String[] {"123456"};
+    private static Password password = new Password();
+    public static final String[] validEmail = new String[]{"trieu@gmail.com", "tuan@gmail.com"};
+    public static final String[] validPassword = new String[]{"Trieu.2004"};
     public static void main(String[] args) {
         login();
     }
-    public static void login(){
-        while (inPut != 0){
-            System.out.println("-----Login-----");
-            System.out.println("1. Nhập tên tài khoản: ");
-            for (String s : validEmail) {
-                boolean isValid = email1.validate(s);
-                String[] acc = {""};
-                acc[0] = checkInput.nextLine();
-                if (isValid && s.equals(acc[0])){
-                    menuManage();
-                }
-                else {menuStaff();}
-            }
-            System.out.println("2. Nhap mat khau: ");
 
-        }
-
-    }
     public static void menuManage() {
         while (inPut != 0) {
             System.out.println("------------------Menu của quản lý---------------------");
@@ -89,7 +77,7 @@ public class Client {
             System.out.println("1. Danh sách sản phẩm: ");
             System.out.println("2. Tổng tiền sản phẩm: ");
             System.out.println("0. Thoát chương trình.");
-            System.out.println("Moi ban nhap: ");
+            System.out.println("Mời bạn nhập: ");
             inPut = Integer.parseInt(checkInput.nextLine());
             switch (inPut) {
                 case 1:
@@ -114,6 +102,7 @@ public class Client {
         System.out.println("2. Thêm máy tính: ");
         System.out.println("3. Thêm tủ lạnh: ");
         System.out.println("0. Thoát ra");
+        System.out.println("Mời bạn nhập: ");
         inPut = Integer.parseInt(checkInput.nextLine());
         switch (inPut) {
             case 1: {
@@ -168,5 +157,29 @@ public class Client {
                 System.out.println("Nhập sai dữ liệu");
         }
         return addElectronicDevice();
+    }
+
+    public static void login() {
+        while (inPut != 0) {
+            System.out.println("-----Login-----");
+            System.out.println("1. Nhập tên tài khoản: ");
+            String tk = checkInput.nextLine();
+            System.out.println("2. Nhap mat khau: ");
+            String password = checkInput.nextLine();
+            for (String s : validEmail) {
+                boolean isValid = email1.validate(s);
+                for (String i:
+                     validPassword) {
+                    boolean isValid1 = password.validate(i);
+
+                if (isValid && validEmail[0].equals(tk) && validPassword[1].equals(password)) {
+                    menuManage();
+                } else {
+                    menuStaff();
+                }
+            }
+                Ơ
+        }
+
     }
 }
