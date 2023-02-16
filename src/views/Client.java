@@ -158,27 +158,21 @@ public class Client {
         }
         return addElectronicDevice();
     }
-
     public static void login() {
         while (inPut != 0) {
             System.out.println("-----Login-----");
             System.out.println("1. Nhập tên tài khoản: ");
             String tk = checkInput.nextLine();
-            System.out.println("2. Nhap mat khau: ");
+            System.out.println("2. Nhập mật khẩu: ");
             String password = checkInput.nextLine();
             for (String s : validEmail) {
                 boolean isValid = email1.validate(s);
-                for (String i:
-                     validPassword) {
-                    boolean isValid1 = password.validate(i);
-
-                if (isValid && validEmail[0].equals(tk) && validPassword[1].equals(password)) {
+                if (isValid && validEmail[0].equals(tk)) {
                     menuManage();
                 } else {
                     menuStaff();
                 }
             }
-                Ơ
         }
 
     }
