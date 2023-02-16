@@ -4,7 +4,7 @@ import model.ElectronicDevice;
 
 import java.util.List;
 
-public interface InReadWriteFile {
+public interface IReadWriteFile {
 
     void writeToFile(List<ElectronicDevice> electronicDevices);
      List<ElectronicDevice> readToFile();

@@ -4,15 +4,17 @@ import model.ElectronicDevice;
 import model.Fridge;
 import model.MobilePhone;
 import model.Pc;
-import storage.InReadWriteFile;
+import storage.IReadWriteFile;
 import storage.ReadWriteFile;
+
 import java.util.List;
 import java.util.Scanner;
 
 public class ElectronicManager {
     private static ElectronicManager instance;
     private final List<ElectronicDevice> electronicDevices;
-    private final InReadWriteFile readWriteFile = ReadWriteFile.getInstance();
+    private final IReadWriteFile readWriteFile = ReadWriteFile.getInstance();
+
     private ElectronicManager() {
         this.electronicDevices = readWriteFile.readToFile();
     }
@@ -24,19 +26,14 @@ public class ElectronicManager {
         return instance;
     }
 
-    public List<ElectronicDevice> getElectronicDevices() {
-        return electronicDevices;
-    }
-
-    //CRUD
-    //----------------in ra man hinh
+    //----------------In ra màn hình
     public void display() {
         for (int i = 0; i < electronicDevices.size(); i++) {
             System.out.println(electronicDevices);
         }
     }
 
-    //------------------tinh tong tien cua dien thoai
+    //------------------Tổng tiền điện thoại
     public double totalPriceMobilePhone() {
         double priceMobilePhone = 0;
         double totalPriceMobilePhoneSale = 0;
@@ -49,7 +46,8 @@ public class ElectronicManager {
         }
         return totalPriceMobilePhoneSale;
     }
-    //------------------tinh tong tien cua may tinh
+
+    //------------------Tổng tiền máy tính
     public double totalPricePc() {
         double pricePc = 0;
         double totalPricePcSale = 0;
@@ -63,7 +61,7 @@ public class ElectronicManager {
         return totalPricePcSale;
     }
 
-    //-----------------------------tinh tong tien cua tu lanh
+    //-----------------------------Tổng tiền tủ lạnh
     public double totalPriceFridge() {
         double totalPriceFridgeSale = 0;
         for (ElectronicDevice electronicDevice :
@@ -76,22 +74,57 @@ public class ElectronicManager {
     }
 
     //-------------------------------------------//
-    //tong tien cua tat ca san pham
+    //Tổng tiền các sản phẩm
     public double priceElectronicDevice() {
         double priceElectronicDevice = 0;
         priceElectronicDevice += totalPriceFridge() + totalPricePc() + totalPriceMobilePhone();
         return priceElectronicDevice;
     }
 
-    // them phan tu------------------
+    // Thêm phần tử------------------
 
     public void addElement(ElectronicDevice electronicDevice) {
         electronicDevices.add(electronicDevice);
         readWriteFile.writeToFile(electronicDevices);
     }
 
-    //----------------------------------------------------//
-    //sua phan tu
+    //--------------------------------------------------//
+    // Xóa theo id
+    public void deleteElement(Scanner scanner) {
+        System.out.println("Nhập sản phẩm cần xóa: ");
+        int id = Integer.parseInt(scanner.nextLine());
+        for (ElectronicDevice e :
+                electronicDevices) {
+            if (electronicDevices.size() == 0) {
+                System.out.println("không có j để xóa ");
+            } else if (id == (e.getId() - 1)) {
+                electronicDevices.remove(e.getId());
+            } else if (id < 1) {
+                System.out.println("----Lỗi nhập. Mời bạn nhập lại----");
+                deleteElement(scanner);
+            }
+        }
+        readWriteFile.writeToFile(electronicDevices);
+    }
+
+    //---------------------------------------------------//
+    //Tìm theo tên
+    public void searchElement(Scanner scanner) {
+        int flag = 0;
+        System.out.println("Mời bạn nhập tên sản phẩm: ");
+        String searhString = scanner.nextLine();
+        for (ElectronicDevice i : electronicDevices) {
+            if (searhString.contains(i.getName())) {
+                System.out.println("Sản phẩm là: " + i);
+                break;
+            }
+            flag++;
+        }
+        System.out.println("Không tìm thấy sản phẩm. Mời bạn nhập lại");
+        searchElement(scanner);
+    }
+
+    //Sửa theo tên sản phẩm
     public void editElement(Scanner scanner) {
         int newId;
         String newName;
@@ -133,33 +166,12 @@ public class ElectronicManager {
                     newScreenType = scanner.nextLine();
                     ((MobilePhone) e).setScreenType(newScreenType);
                 }
+            } else if (id != e.getId()) {
+                System.out.println("Không tìm thấy sản phẩm cần sửa. Mời bạn nhập lại");
+                editElement(scanner);
             }
         }
         readWriteFile.writeToFile(electronicDevices);
-    }
-
-    //--------------------------------------------------//
-    // ham xoa phan tu
-    public void deleteElement() {
-        if (electronicDevices.size() == 0) {
-            System.out.println("khong co j de xoa ");
-        } else {
-            electronicDevices.remove(electronicDevices.size() - 1);
-        }
-        readWriteFile   .writeToFile(electronicDevices);
-    }
-    //---------------------------------------------------//
-    //tim kiem theo id
-    public String searchElement(Scanner scanner){
-        System.out.println("Mời bạn nhập tên sản phẩm: ");
-        String searhString =  scanner.nextLine();
-        for (ElectronicDevice i: electronicDevices) {
-            if (searhString.equalsIgnoreCase(i.getName())) {
-                System.out.println("Sản phẩm là: " + i);
-                break;
-            }
-        }
-        return "Không tìm thấy sản phẩm";
     }
 
 }

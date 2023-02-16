@@ -33,7 +33,7 @@ public class Fridge extends ElectronicDevice {
 
     @Override
     public double getRealMoney() {
-        if (getCooling().equals("tu dung")) {
+        if (getCooling().equalsIgnoreCase("tu dung")) {
             return getAmount() - (getAmount() * 0.15);
 
         } else return 0;

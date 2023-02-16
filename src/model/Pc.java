@@ -2,10 +2,7 @@ package model;
 
 public class Pc extends ElectronicDevice{
     private String card;
-
-    public Pc() {
-    }
-
+    public Pc(){}
     public Pc(int id, String name, double cost, String color, int quantity, String card) {
         super(id, name, cost, color, quantity);
         this.card = card;

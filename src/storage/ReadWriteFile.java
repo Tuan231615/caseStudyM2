@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadWriteFile implements InReadWriteFile{
+public class ReadWriteFile implements IReadWriteFile {
     private  ReadWriteFile() {}
 
     private static ReadWriteFile instance;

@@ -1,26 +1,17 @@
 package views;
-
-import login.Email;
 import controller.ElectronicManager;
-import login.Password;
 import model.ElectronicDevice;
 import model.Fridge;
 import model.MobilePhone;
 import model.Pc;
-import storage.InReadWriteFile;
-import storage.ReadWriteFile;
-
-import java.util.List;
 import java.util.Scanner;
+
+import static login.Login.login;
 
 public class Client {
     public static ElectronicManager admin = ElectronicManager.getInstance();
     public static Scanner checkInput = new Scanner(System.in);
     public static int inPut = -1;
-    private static Email email1 = new Email();
-    private static Password password = new Password();
-    public static final String[] validEmail = new String[]{"trieu@gmail.com", "tuan@gmail.com"};
-    public static final String[] validPassword = new String[]{"Trieu.2004"};
     public static void main(String[] args) {
         login();
     }
@@ -35,6 +26,7 @@ public class Client {
             System.out.println("4. Sửa sản phẩm: ");
             System.out.println("5. Xoá sản phẩm: ");
             System.out.println("6. tim kiem san pham: ");
+            System.out.println("10. Đăng xuất");
             System.out.println("0. Thoát chương trình: ");
             inPut = Integer.parseInt(checkInput.nextLine());
             switch (inPut) {
@@ -56,7 +48,7 @@ public class Client {
                     break;
                 case 5:
 
-                    admin.deleteElement();
+                    admin.deleteElement(checkInput);
                     break;
                 case 6:
                     admin.searchElement(checkInput);
@@ -64,6 +56,8 @@ public class Client {
                 case 0:
 
                     System.exit(inPut);
+                case 10:
+                    login();
                 default:
                     System.out.println("Nhập sai dữ liệu");
             }
@@ -76,6 +70,7 @@ public class Client {
             System.out.println("Your choise: ");
             System.out.println("1. Danh sách sản phẩm: ");
             System.out.println("2. Tổng tiền sản phẩm: ");
+            System.out.println("3. Đăng xuất");
             System.out.println("0. Thoát chương trình.");
             System.out.println("Mời bạn nhập: ");
             inPut = Integer.parseInt(checkInput.nextLine());
@@ -90,6 +85,8 @@ public class Client {
                     break;
                 case 0:
                     System.exit(inPut);
+                case 3:
+                    login();
                 default:
                     System.out.println("Lỗi nhập.");
             }
@@ -107,8 +104,7 @@ public class Client {
         switch (inPut) {
             case 1: {
                 System.out.println("Nhập id điện thoại: ");
-                int id = checkInput.nextInt();
-                String b = checkInput.nextLine();
+                int id = Integer.parseInt(checkInput.nextLine());
                 System.out.println("Nhập tên điện thoại: ");
                 String name = checkInput.nextLine();
                 System.out.println("Nhập giá tiền điện thoại: ");
@@ -152,28 +148,19 @@ public class Client {
                 return new Fridge(id, name, cost, color, quantity, cooling);
             }
             case 0:
-                System.exit(inPut);
+                menuManage();
             default:
                 System.out.println("Nhập sai dữ liệu");
         }
         return addElectronicDevice();
     }
-    public static void login() {
-        while (inPut != 0) {
-            System.out.println("-----Login-----");
-            System.out.println("1. Nhập tên tài khoản: ");
-            String tk = checkInput.nextLine();
-            System.out.println("2. Nhập mật khẩu: ");
-            String password = checkInput.nextLine();
-            for (String s : validEmail) {
-                boolean isValid = email1.validate(s);
-                if (isValid && validEmail[0].equals(tk)) {
-                    menuManage();
-                } else {
-                    menuStaff();
-                }
-            }
+    public static void loginReal(){
+        System.out.println("Bạn có muốn nhập lại không?");
+        System.out.println("0. Thoát");
+        System.out.println("1. Nhập lại: ");
+        switch (inPut) {
+            case 0: System.exit(inPut);
+            case 1: login();
         }
-
     }
 }
