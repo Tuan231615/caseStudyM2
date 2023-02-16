@@ -1,9 +1,11 @@
 package views;
+
 import controller.ElectronicManager;
 import model.ElectronicDevice;
 import model.Fridge;
 import model.MobilePhone;
 import model.Pc;
+
 import java.util.Scanner;
 
 import static login.Login.login;
@@ -12,6 +14,7 @@ public class Client {
     public static ElectronicManager admin = ElectronicManager.getInstance();
     public static Scanner checkInput = new Scanner(System.in);
     public static int inPut = -1;
+
     public static void main(String[] args) {
         login();
     }
@@ -154,13 +157,19 @@ public class Client {
         }
         return addElectronicDevice();
     }
-    public static void loginReal(){
+
+    public static void loginReal() {
         System.out.println("Bạn có muốn nhập lại không?");
         System.out.println("0. Thoát");
         System.out.println("1. Nhập lại: ");
         switch (inPut) {
-            case 0: System.exit(inPut);
-            case 1: login();
+            case 0:
+                System.exit(inPut);
+            case 1:
+                login();
+                break;
+            default:
+                System.out.println("Nhập lỗi.");
         }
     }
 }

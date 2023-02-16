@@ -6,6 +6,7 @@ import model.MobilePhone;
 import model.Pc;
 import storage.IReadWriteFile;
 import storage.ReadWriteFile;
+import views.Client;
 
 import java.util.List;
 import java.util.Scanner;
@@ -28,12 +29,10 @@ public class ElectronicManager {
 
     //----------------In ra màn hình
     public void display() {
-        for (int i = 0; i < electronicDevices.size(); i++) {
-            System.out.println(electronicDevices);
-        }
+        System.out.println(electronicDevices);
     }
 
-    //------------------Tổng tiền điện thoại
+    //Tổng tiền điện thoại------------------
     public double totalPriceMobilePhone() {
         double priceMobilePhone = 0;
         double totalPriceMobilePhoneSale = 0;
@@ -47,7 +46,7 @@ public class ElectronicManager {
         return totalPriceMobilePhoneSale;
     }
 
-    //------------------Tổng tiền máy tính
+    //Tổng tiền máy tính------------------
     public double totalPricePc() {
         double pricePc = 0;
         double totalPricePcSale = 0;
@@ -61,7 +60,7 @@ public class ElectronicManager {
         return totalPricePcSale;
     }
 
-    //-----------------------------Tổng tiền tủ lạnh
+    //Tổng tiền tủ lạnh-----------------------------
     public double totalPriceFridge() {
         double totalPriceFridgeSale = 0;
         for (ElectronicDevice electronicDevice :
@@ -97,8 +96,10 @@ public class ElectronicManager {
                 electronicDevices) {
             if (electronicDevices.size() == 0) {
                 System.out.println("không có j để xóa ");
-            } else if (id == (e.getId() - 1)) {
-                electronicDevices.remove(e.getId());
+                break;
+            } else if (id == (e.getId())) {
+                electronicDevices.remove(e);
+                break;
             } else if (id < 1) {
                 System.out.println("----Lỗi nhập. Mời bạn nhập lại----");
                 deleteElement(scanner);
@@ -116,12 +117,16 @@ public class ElectronicManager {
         for (ElectronicDevice i : electronicDevices) {
             if (searhString.contains(i.getName())) {
                 System.out.println("Sản phẩm là: " + i);
+                flag = 1;
+            }
+            if (flag == 0) {
+                System.out.println("Không tìm thấy sản phẩm. Mời bạn nhập lại");
+                searchElement(scanner);
                 break;
             }
             flag++;
         }
-        System.out.println("Không tìm thấy sản phẩm. Mời bạn nhập lại");
-        searchElement(scanner);
+
     }
 
     //Sửa theo tên sản phẩm
@@ -137,39 +142,65 @@ public class ElectronicManager {
         System.out.println("Mởi bạn nhập id sản phẩm: ");
         int id = Integer.parseInt(scanner.nextLine());
         for (ElectronicDevice e : electronicDevices) {
-            System.out.println("Mời bạn nhập id : ");
-            newId = Integer.parseInt(scanner.nextLine());
-            System.out.println("Mời bạn nhập tên: ");
-            newName = scanner.nextLine();
-            System.out.println("Mời bạn nhập giá: ");
-            newCost = Double.parseDouble(scanner.nextLine());
-            System.out.println("Mời bạn nhập màu: ");
-            newColor = scanner.nextLine();
-            System.out.println("Mời bạn nhập số lượng: ");
-            newQuantity = Integer.parseInt(scanner.nextLine());
-            e.setId(newId);
-            e.setName(newName);
-            e.setCost(newCost);
-            e.setColor(newColor);
-            e.setQuantity(newQuantity);
             if (id == e.getId()) {
+                System.out.println("Mời bạn nhập id : ");
+                newId = Integer.parseInt(scanner.nextLine());
+                if (newId == e.getId()) {
+                    System.out.println("Bị trùng id, mời bạn nhập lại: ");
+                    newId = Integer.parseInt(scanner.nextLine());
+                }
+                System.out.println("Mời bạn nhập tên: ");
+                newName = scanner.nextLine();
+                System.out.println("Mời bạn nhập giá: ");
+                newCost = Double.parseDouble(scanner.nextLine());
+                System.out.println("Mời bạn nhập màu: ");
+                newColor = scanner.nextLine();
+                System.out.println("Mời bạn nhập số lượng: ");
+                newQuantity = Integer.parseInt(scanner.nextLine());
+                e.setId(newId);
+                e.setName(newName);
+                e.setCost(newCost);
+                e.setColor(newColor);
+                e.setQuantity(newQuantity);
                 if (e instanceof Fridge) {
                     System.out.println("Mời bạn nhập kiểu tủ lạnh: ");
                     newCooling = scanner.nextLine();
                     ((Fridge) e).setCooling(newCooling);
+                    break;
                 } else if (e instanceof Pc) {
                     System.out.println("Mời bạn nhâp kiểu card của pc: ");
                     newCard = scanner.nextLine();
                     ((Pc) e).setCard(newCard);
+                    break;
                 } else if (e instanceof MobilePhone) {
                     System.out.println("Mời bạn nhập kiểu màn hình của điện thoại: ");
                     newScreenType = scanner.nextLine();
                     ((MobilePhone) e).setScreenType(newScreenType);
+                    break;
                 }
-            } else if (id != e.getId()) {
-                System.out.println("Không tìm thấy sản phẩm cần sửa. Mời bạn nhập lại");
-                editElement(scanner);
             }
+            break;
+        }
+
+        for (ElectronicDevice e :
+                electronicDevices) {
+            if (id != e.getId()) {
+                System.out.println("Không tìm thấy sản phẩm cần sửa. Bạn có muốn nhập lại không?");
+                System.out.println("10. Có, mời bạn nhập lại: ");
+                System.out.println("11. Thoát ra menu.");
+                int inPut = Integer.parseInt(scanner.nextLine());
+                switch (inPut) {
+                    case 10:
+                        editElement(scanner);
+                        break;
+                    case 11:
+                        Client.menuManage();
+                        break;
+                    default:
+                        System.out.println("Nhập lỗi.");
+                }
+            }
+            break;
         }
         readWriteFile.writeToFile(electronicDevices);
     }

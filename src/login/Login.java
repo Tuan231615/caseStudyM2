@@ -34,8 +34,10 @@ public class Login {
                 for (int j = 0; j < validPassword.length; j++) {
                     if (!validEmail[i].equals(tk) || !validPassword[j].equals(password1)){
                         loginReal();
+
                     }
                 }
+                break;
             }
         }
     }
