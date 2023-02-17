@@ -7,7 +7,6 @@ import model.Pc;
 import storage.IReadWriteFile;
 import storage.ReadWriteFile;
 import views.Client;
-
 import java.util.List;
 import java.util.Scanner;
 
@@ -100,7 +99,9 @@ public class ElectronicManager {
             } else if (id == (e.getId())) {
                 electronicDevices.remove(e);
                 break;
-            } else if (id < 1) {
+
+            }
+            else if (id < 1 || id != e.getId()) {
                 System.out.println("----Lỗi nhập. Mời bạn nhập lại----");
                 deleteElement(scanner);
             }

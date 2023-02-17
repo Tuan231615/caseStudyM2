@@ -159,17 +159,22 @@ public class Client {
     }
 
     public static void loginReal() {
-        System.out.println("Bạn có muốn nhập lại không?");
-        System.out.println("0. Thoát");
-        System.out.println("1. Nhập lại: ");
-        switch (inPut) {
-            case 0:
-                System.exit(inPut);
-            case 1:
-                login();
-                break;
-            default:
-                System.out.println("Nhập lỗi.");
+        while (inPut != 0) {
+            System.out.println("Bạn đã nhập sai tên tài khoản hoặc mật khẩu.");
+            System.out.println("Bạn có muốn nhập lại không?");
+            System.out.println("0. Thoát");
+            System.out.println("1. Nhập lại: ");
+            inPut = Integer.parseInt(checkInput.nextLine());
+            switch (inPut) {
+                case 0:
+                    System.exit(inPut);
+                case 1:
+                    login();
+                    break;
+                default:
+                    System.out.println("Nhập lỗi.");
+                    break;
+            }
         }
     }
 }

@@ -30,11 +30,11 @@ public class Login {
                     }
                 }
             }
-            for (int i = 0; i < validEmail.length; i++) {
-                for (int j = 0; j < validPassword.length; j++) {
-                    if (!validEmail[i].equals(tk) || !validPassword[j].equals(password1)){
+            for (String s : validEmail) {
+                for (String value : validPassword) {
+                    if (!s.equals(tk) || !value.equals(password1)) {
                         loginReal();
-
+                        break;
                     }
                 }
                 break;
