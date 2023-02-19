@@ -31,7 +31,7 @@ public class Client {
             System.out.println("6. tim kiem san pham: ");
             System.out.println("10. Đăng xuất");
             System.out.println("0. Thoát chương trình: ");
-            inPut = Integer.parseInt(checkInput.nextLine());
+            inPut = admin.checkInt(checkInput);
             switch (inPut) {
                 case 1:
 
@@ -76,7 +76,7 @@ public class Client {
             System.out.println("3. Đăng xuất");
             System.out.println("0. Thoát chương trình.");
             System.out.println("Mời bạn nhập: ");
-            inPut = Integer.parseInt(checkInput.nextLine());
+            inPut = admin.checkInt(checkInput);
             switch (inPut) {
                 case 1:
 
@@ -95,7 +95,6 @@ public class Client {
             }
         }
     }
-
     public static ElectronicDevice addElectronicDevice() {
         System.out.println("Bạn muốn thêm sản phẩm nào? ");
         System.out.println("1. Thêm điện thoại: ");
@@ -103,49 +102,49 @@ public class Client {
         System.out.println("3. Thêm tủ lạnh: ");
         System.out.println("0. Thoát ra");
         System.out.println("Mời bạn nhập: ");
-        inPut = Integer.parseInt(checkInput.nextLine());
+        inPut = admin.checkInt(checkInput);
         switch (inPut) {
             case 1: {
                 System.out.println("Nhập id điện thoại: ");
-                int id = Integer.parseInt(checkInput.nextLine());
+                String id = admin.getID(checkInput);
                 System.out.println("Nhập tên điện thoại: ");
                 String name = checkInput.nextLine();
                 System.out.println("Nhập giá tiền điện thoại: ");
-                double cost = Double.parseDouble(checkInput.nextLine());
+                double cost = admin.checkDouble(checkInput);
                 System.out.println("Nhập màu sắc điện thoại: ");
                 String color = checkInput.nextLine();
                 System.out.println("Nhập số lượng điện thoại: ");
-                int quantity = Integer.parseInt(checkInput.nextLine());
+                int quantity = admin.checkInt(checkInput);
                 System.out.println("Nhập kiểu màn hình: ");
                 String typeOfScreen = checkInput.nextLine();
                 return new MobilePhone(id, name, cost, color, quantity, typeOfScreen);
             }
             case 2: {
                 System.out.println("Nhập id máy tính: ");
-                int id = Integer.parseInt(checkInput.nextLine());
+                String id = admin.getID(checkInput);
                 System.out.println("Nhập tên máy tính: ");
                 String name = checkInput.nextLine();
                 System.out.println("Nhập giá tiền máy tính: ");
-                double cost = Double.parseDouble(checkInput.nextLine());
+                double cost = admin.checkDouble(checkInput);
                 System.out.println("nhập màu sắc máy tính: ");
                 String color = checkInput.nextLine();
                 System.out.println("Nhập số lượng máy tính: ");
-                int quantity = Integer.parseInt(checkInput.nextLine());
+                int quantity = admin.checkInt(checkInput);
                 System.out.println("Nhập loại card: ");
                 String card = checkInput.nextLine();
                 return new Pc(id, name, cost, color, quantity, card);
             }
             case 3: {
                 System.out.println("Nhập id tủ lạnh:");
-                int id = Integer.parseInt(checkInput.nextLine());
+                String id = admin.getID(checkInput);
                 System.out.println("Nhập tên tủ lạnh: ");
                 String name = checkInput.nextLine();
                 System.out.println("Nhập giá tiền: ");
-                double cost = Double.parseDouble(checkInput.nextLine());
+                double cost = admin.checkDouble(checkInput);
                 System.out.println("Nhập màu sắc: ");
                 String color = checkInput.nextLine();
                 System.out.println("Nhập số lựợng tủ lạnh: ");
-                int quantity = Integer.parseInt(checkInput.nextLine());
+                int quantity = admin.checkInt(checkInput);
                 System.out.println("Nhập loại tủ lạnh: ");
                 String cooling = checkInput.nextLine();
                 return new Fridge(id, name, cost, color, quantity, cooling);
@@ -156,25 +155,5 @@ public class Client {
                 System.out.println("Nhập sai dữ liệu");
         }
         return addElectronicDevice();
-    }
-
-    public static void loginReal() {
-        while (inPut != 0) {
-            System.out.println("Bạn đã nhập sai tên tài khoản hoặc mật khẩu.");
-            System.out.println("Bạn có muốn nhập lại không?");
-            System.out.println("0. Thoát");
-            System.out.println("1. Nhập lại: ");
-            inPut = Integer.parseInt(checkInput.nextLine());
-            switch (inPut) {
-                case 0:
-                    System.exit(inPut);
-                case 1:
-                    login();
-                    break;
-                default:
-                    System.out.println("Nhập lỗi.");
-                    break;
-            }
-        }
     }
 }

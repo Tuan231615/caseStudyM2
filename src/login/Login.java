@@ -1,12 +1,14 @@
 package login;
 
+import controller.ElectronicManager;
+
 import static views.Client.*;
 
 public class Login {
     private static final Email email1 = new Email();
     private static final Password password = new Password();
-    public static final String[] validEmail = new String[]{"trieu@gmail.com", "tuan@gmail.com"};
-    public static final String[] validPassword = new String[]{"trieu.com", "tuan.com"};
+    public static final String[] validEmail = new String[]{"tuan@gmail.com", "trieu@gmail.com"};
+    public static final String[] validPassword = new String[]{"tuan.com", "trieu.com"};
 
     public static void login() {
         while (inPut != 0) {
@@ -38,6 +40,25 @@ public class Login {
                     }
                 }
                 break;
+            }
+        }
+    }
+    public static void loginReal() {
+        while (inPut != 0) {
+            System.out.println("Bạn đã nhập sai tên tài khoản hoặc mật khẩu.");
+            System.out.println("Bạn có muốn nhập lại không?");
+            System.out.println("0. Thoát");
+            System.out.println("1. Nhập lại: ");
+            inPut = admin.checkInt(checkInput);
+            switch (inPut) {
+                case 0:
+                    System.exit(inPut);
+                case 1:
+                    login();
+                    break;
+                default:
+                    System.out.println("Nhập lỗi.");
+                    break;
             }
         }
     }

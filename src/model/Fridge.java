@@ -6,7 +6,7 @@ public class Fridge extends ElectronicDevice {
     public Fridge() {
     }
 
-    public Fridge(int id, String name, double cost, String color, int quantity, String cooling) {
+    public Fridge(String id, String name, double cost, String color, int quantity, String cooling) {
         super(id, name, cost, color, quantity);
         this.cooling = cooling;
     }

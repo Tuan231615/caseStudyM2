@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 
 public abstract class ElectronicDevice implements Discount, Serializable {
-    private int id;
+    private String id;
     private String name;
     private double cost;
     private String color;
@@ -14,7 +14,7 @@ public abstract class ElectronicDevice implements Discount, Serializable {
 
 
 
-    public ElectronicDevice(int id, String name, double cost, String color, int quantity) {
+    public ElectronicDevice(String id, String name, double cost, String color, int quantity) {
         this.id = id;
         this.name = name;
         this.cost = cost;
@@ -22,11 +22,11 @@ public abstract class ElectronicDevice implements Discount, Serializable {
         this.quantity = quantity;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

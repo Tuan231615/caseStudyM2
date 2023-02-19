@@ -7,8 +7,11 @@ import model.Pc;
 import storage.IReadWriteFile;
 import storage.ReadWriteFile;
 import views.Client;
+
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ElectronicManager {
     private static ElectronicManager instance;
@@ -90,20 +93,16 @@ public class ElectronicManager {
     // Xóa theo id
     public void deleteElement(Scanner scanner) {
         System.out.println("Nhập sản phẩm cần xóa: ");
-        int id = Integer.parseInt(scanner.nextLine());
+        String id = String.valueOf(checkInt(scanner));
         for (ElectronicDevice e :
                 electronicDevices) {
             if (electronicDevices.size() == 0) {
                 System.out.println("không có j để xóa ");
                 break;
-            } else if (id == (e.getId())) {
+            } else if (id.equals(e.getId())) {
                 electronicDevices.remove(e);
                 break;
 
-            }
-            else if (id < 1 || id != e.getId()) {
-                System.out.println("----Lỗi nhập. Mời bạn nhập lại----");
-                deleteElement(scanner);
             }
         }
         readWriteFile.writeToFile(electronicDevices);
@@ -112,27 +111,24 @@ public class ElectronicManager {
     //---------------------------------------------------//
     //Tìm theo tên
     public void searchElement(Scanner scanner) {
-        int flag = 0;
+        int flag = -1;
         System.out.println("Mời bạn nhập tên sản phẩm: ");
         String searhString = scanner.nextLine();
-        for (ElectronicDevice i : electronicDevices) {
-            if (searhString.contains(i.getName())) {
-                System.out.println("Sản phẩm là: " + i);
-                flag = 1;
+
+        for (int i = 0; i < electronicDevices.size(); i++) {
+            if (searhString.equals(electronicDevices.get(i).getName())) {
+                System.out.println("Sản phẩm là: " + electronicDevices.get(i));
+                flag = i;
             }
-            if (flag == 0) {
-                System.out.println("Không tìm thấy sản phẩm. Mời bạn nhập lại");
-                searchElement(scanner);
-                break;
-            }
-            flag++;
+        }
+        if (electronicDevices.size() == 0 || flag < 0) {
+            System.out.println("khong tim thay san pham");
         }
 
     }
-
     //Sửa theo tên sản phẩm
     public void editElement(Scanner scanner) {
-        int newId;
+        String newId;
         String newName;
         double newCost;
         String newColor;
@@ -141,23 +137,19 @@ public class ElectronicManager {
         String newScreenType;
         String newCard;
         System.out.println("Mởi bạn nhập id sản phẩm: ");
-        int id = Integer.parseInt(scanner.nextLine());
+        String id = getID(scanner);
         for (ElectronicDevice e : electronicDevices) {
-            if (id == e.getId()) {
+            if (id.equals(e.getId())) {
                 System.out.println("Mời bạn nhập id : ");
-                newId = Integer.parseInt(scanner.nextLine());
-                if (newId == e.getId()) {
-                    System.out.println("Bị trùng id, mời bạn nhập lại: ");
-                    newId = Integer.parseInt(scanner.nextLine());
-                }
+                newId = getID(scanner);
                 System.out.println("Mời bạn nhập tên: ");
                 newName = scanner.nextLine();
                 System.out.println("Mời bạn nhập giá: ");
-                newCost = Double.parseDouble(scanner.nextLine());
+                newCost = checkDouble(scanner);
                 System.out.println("Mời bạn nhập màu: ");
                 newColor = scanner.nextLine();
                 System.out.println("Mời bạn nhập số lượng: ");
-                newQuantity = Integer.parseInt(scanner.nextLine());
+                newQuantity = checkInt(scanner);
                 e.setId(newId);
                 e.setName(newName);
                 e.setCost(newCost);
@@ -179,17 +171,17 @@ public class ElectronicManager {
                     ((MobilePhone) e).setScreenType(newScreenType);
                     break;
                 }
+                break;
             }
-            break;
         }
-
         for (ElectronicDevice e :
                 electronicDevices) {
-            if (id != e.getId()) {
+
+            if (!id.equals(e.getId())) {
                 System.out.println("Không tìm thấy sản phẩm cần sửa. Bạn có muốn nhập lại không?");
                 System.out.println("10. Có, mời bạn nhập lại: ");
                 System.out.println("11. Thoát ra menu.");
-                int inPut = Integer.parseInt(scanner.nextLine());
+                int inPut = checkInt(scanner);
                 switch (inPut) {
                     case 10:
                         editElement(scanner);
@@ -200,10 +192,56 @@ public class ElectronicManager {
                     default:
                         System.out.println("Nhập lỗi.");
                 }
+                break;
             }
-            break;
         }
         readWriteFile.writeToFile(electronicDevices);
     }
 
+    public int checkInt(Scanner scanner) {
+        try {
+            return Integer.parseInt(scanner.nextLine());
+        } catch (Exception e) {
+            System.out.println("Nhap sai, mời ban nhap lai");
+        }
+        return checkInt(scanner);
+    }
+
+    public double checkDouble(Scanner scanner) {
+        try {
+            return Double.parseDouble(scanner.nextLine());
+        } catch (Exception e) {
+            System.out.println("Nhap sai, moi nhap lai");
+        }
+        return checkDouble(scanner);
+    }
+
+    public static final String id = "^[0-9]+$";
+
+    public static boolean validateId(String ids) {
+        Pattern pattern = Pattern.compile(id);
+        Matcher matcher = pattern.matcher(ids);
+        return matcher.matches();
+    }
+
+    public String getID(Scanner scanner) {
+        while (true) {
+            try {
+                String id = scanner.nextLine();
+                if (controller.ElectronicManager.validateId(id)) {
+
+                    for (ElectronicDevice e : electronicDevices) {
+                        if (e.getId().equals(id)) {
+                            throw new Exception();
+                        }
+                        break;
+                    }
+                    return id;
+                } else System.out.println("Mời bạn nhập id từ 0->9.");
+            } catch (Exception e) {
+                System.out.println("Enter the same id, re-enter it to see if it still matches!!!!");
+            }
+        }
+
+    }
 }
