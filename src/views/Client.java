@@ -84,7 +84,7 @@ public class Client {
                     break;
                 case 2:
 
-                    System.out.println(admin.totalPricePc());
+                    System.out.println(admin.priceElectronicDevice());
                     break;
                 case 0:
                     System.exit(inPut);
@@ -95,6 +95,7 @@ public class Client {
             }
         }
     }
+
     public static ElectronicDevice addElectronicDevice() {
         System.out.println("Bạn muốn thêm sản phẩm nào? ");
         System.out.println("1. Thêm điện thoại: ");

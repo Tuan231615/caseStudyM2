@@ -10,8 +10,6 @@ import views.Client;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ElectronicManager {
     private static ElectronicManager instance;
@@ -126,8 +124,10 @@ public class ElectronicManager {
         }
 
     }
+
     //Sửa theo tên sản phẩm
     public void editElement(Scanner scanner) {
+        int flag = -1;
         String newId;
         String newName;
         double newCost;
@@ -137,7 +137,7 @@ public class ElectronicManager {
         String newScreenType;
         String newCard;
         System.out.println("Mởi bạn nhập id sản phẩm: ");
-        String id = getID(scanner);
+        String id = scanner.nextLine();
         for (ElectronicDevice e : electronicDevices) {
             if (id.equals(e.getId())) {
                 System.out.println("Mời bạn nhập id : ");
@@ -173,26 +173,28 @@ public class ElectronicManager {
                 }
                 break;
             }
+            flag = 0;
         }
-        for (ElectronicDevice e :
-                electronicDevices) {
-
-            if (!id.equals(e.getId())) {
-                System.out.println("Không tìm thấy sản phẩm cần sửa. Bạn có muốn nhập lại không?");
-                System.out.println("10. Có, mời bạn nhập lại: ");
-                System.out.println("11. Thoát ra menu.");
-                int inPut = checkInt(scanner);
-                switch (inPut) {
-                    case 10:
-                        editElement(scanner);
-                        break;
-                    case 11:
-                        Client.menuManage();
-                        break;
-                    default:
-                        System.out.println("Nhập lỗi.");
+        if (flag < 0) {
+            for (ElectronicDevice e :
+                    electronicDevices) {
+                if (!id.equals(e.getId())) {
+                    System.out.println("Không tìm thấy sản phẩm cần sửa. Bạn có muốn nhập lại không?");
+                    System.out.println("10. Có, mời bạn nhập lại: ");
+                    System.out.println("11. Thoát ra menu.");
+                    int inPut = checkInt(scanner);
+                    switch (inPut) {
+                        case 10:
+                            editElement(scanner);
+                            break;
+                        case 11:
+                            Client.menuManage();
+                            break;
+                        default:
+                            System.out.println("Nhập lỗi.");
+                    }
+                    break;
                 }
-                break;
             }
         }
         readWriteFile.writeToFile(electronicDevices);
@@ -216,32 +218,22 @@ public class ElectronicManager {
         return checkDouble(scanner);
     }
 
-    public static final String id = "^[0-9]+$";
-
-    public static boolean validateId(String ids) {
-        Pattern pattern = Pattern.compile(id);
-        Matcher matcher = pattern.matcher(ids);
-        return matcher.matches();
-    }
-
     public String getID(Scanner scanner) {
         while (true) {
             try {
                 String id = scanner.nextLine();
-                if (controller.ElectronicManager.validateId(id)) {
+                if (login.Regex.validateId(id)) {
 
                     for (ElectronicDevice e : electronicDevices) {
                         if (e.getId().equals(id)) {
                             throw new Exception();
                         }
-                        break;
                     }
                     return id;
                 } else System.out.println("Mời bạn nhập id từ 0->9.");
             } catch (Exception e) {
-                System.out.println("Enter the same id, re-enter it to see if it still matches!!!!");
+                System.out.println("Moi ban nhap id khac: ");
             }
         }
-
     }
 }
