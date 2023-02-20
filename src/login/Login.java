@@ -8,7 +8,7 @@ public class Login {
 
     public static void login() {
         while (inPut != 0) {
-            System.out.println("-----Login-----");
+            System.out.println("-----Đăng nhập-----");
             System.out.println("Nhập tên tài khoản: ");
             String tk = checkInput.nextLine();
             System.out.println("Nhập mật khẩu: ");

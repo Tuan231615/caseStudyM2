@@ -1,9 +1,6 @@
 package controller;
 
-import model.ElectronicDevice;
-import model.Fridge;
-import model.MobilePhone;
-import model.Pc;
+import model.*;
 import storage.IReadWriteFile;
 import storage.ReadWriteFile;
 import views.Client;
@@ -114,7 +111,16 @@ public class ElectronicManager {
         }
         readWriteFile.writeToFile(electronicDevices);
     }
-
+    // Xóa tất cả phần tử
+    public void deleteElectronicDevice(){
+        electronicDevices.removeAll(electronicDevices);
+        readWriteFile.writeToFile(electronicDevices);
+    }
+    //Thanh
+    public void payToBill(){
+        System.out.println("Tổng hóa đơn: " + priceElectronicDevice());
+        deleteElectronicDevice();
+    }
     //---------------------------------------------------//
     //Tìm theo tên
     public void searchElement(Scanner scanner) {
@@ -202,9 +208,9 @@ public class ElectronicManager {
                 if (!id.equals(e.getId())) {
                     System.out.println("""
                      -----------------------------------------------------------------------
-                    |         Không tìm thấy sản phẩm cần sửa. Bạn có muốn nhập lại không?  |
-                    |         10. Có, mời bạn nhập lại:                                     |
-                    |         11. Thoát ra menu.                                            |
+                    |       Không tìm thấy sản phẩm cần sửa. Bạn có muốn nhập lại không?    |
+                    |       10. Có, mời bạn nhập l  ại:                                     |
+                    |       11. Thoát ra menu.                                              |
                      -----------------------------------------------------------------------
                     """);
                     int inPut = checkInt(scanner);
@@ -247,7 +253,7 @@ public class ElectronicManager {
         while (true) {
             try {
                 String id = scanner.nextLine();
-                if (login.Regex.validateId(id)) {
+                if (Regex.validateId(id)) {
 
                     for (ElectronicDevice e : electronicDevices) {
                         if (e.getId().equals(id)) {
@@ -255,7 +261,7 @@ public class ElectronicManager {
                         }
                     }
                     return id;
-                } else System.out.println("Mời bạn nhập id từ 0->9.");
+                } else System.out.println("Mời bạn nhập id là số: ");
             } catch (Exception e) {
                 System.out.println("Mời bạn nhập id khác: ");
             }

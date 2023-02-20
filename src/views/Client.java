@@ -32,8 +32,9 @@ public class Client {
                     |    5.  Xoá sản phẩm:                 |
                     |    6.  Tìm kiếm sản phẩm:            |
                     |    7.  Sắp xếp sản phẩm:             |
-                    |    8.  Tổng tiền trước khuyến mại    |
-                    |    10. Đăng xuất                     |
+                    |    8.  Tổng tiền trước khuyến mại:   |
+                    |    9.  Thanh toán:                   |
+                    |    10. Đăng xuất:                    |
                     |    0.  Thoát chương trình:           |  
                      --------------------------------------
                     """);
@@ -69,6 +70,9 @@ public class Client {
                 case 8:
                     System.out.println(admin.totalElectronicDeviceBeforeSale());
                     break;
+                case 9:
+                    admin.payToBill();
+                    break;
                 case 0:
 
                     System.exit(inPut);
@@ -89,6 +93,7 @@ public class Client {
                     |   1. Danh sách sản phẩm:   |
                     |   2. Tổng tiền sản phẩm:   |
                     |   3. Đăng xuất.            |
+                    |   4. Thanh toán:           |
                     |   0. Thoát chương trình.   |
                      ----------------------------
                     """);
@@ -107,6 +112,8 @@ public class Client {
                     System.exit(inPut);
                 case 3:
                     login();
+                case 4:
+                    admin.payToBill();
                 default:
                     System.out.println("Lỗi nhập.");
             }
