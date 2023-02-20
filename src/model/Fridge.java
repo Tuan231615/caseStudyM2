@@ -26,14 +26,14 @@ public class Fridge extends ElectronicDevice {
                 ", name='" + getName() + '\'' +
                 ", cost=" + getCost() +
                 ", color='" + getColor() + '\'' +
-                ", quantity=" + getQuantity() + '\'' +
+                ", quantity='" + getQuantity() + '\'' +
                 ", cooling='" + getCooling() + '\'' +
-                '}';
+                '}'+"\n";
     }
 
     @Override
     public double getRealMoney() {
-        if (getCooling().equalsIgnoreCase("tu dung")) {
+        if (getCooling().equalsIgnoreCase("tủ đứng")) {
             return getAmount() - (getAmount() * 0.15);
 
         } else return 0;

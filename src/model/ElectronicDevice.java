@@ -71,6 +71,6 @@ public abstract class ElectronicDevice implements Discount, Serializable {
                 ", cost=" + cost +
                 ", color='" + color + '\'' +
                 ", quantity=" + quantity +
-                '}';
+                '}'+ "\n";
     }
 }

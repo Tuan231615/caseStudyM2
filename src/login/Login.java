@@ -1,21 +1,17 @@
 package login;
-
-import controller.ElectronicManager;
-
 import static views.Client.*;
-
 public class Login {
     private static final Email email1 = new Email();
     private static final Password password = new Password();
-    public static final String[] validEmail = new String[]{"tuan@gmail.com", "trieu@gmail.com"};
-    public static final String[] validPassword = new String[]{"tuan.com", "trieu.com"};
+    public static final String[] validEmail = new String[]{"tuan@gmail.com", "nhanvien@gmail.com"};
+    public static final String[] validPassword = new String[]{"tuan.com", "nhanvien.com"};
 
     public static void login() {
         while (inPut != 0) {
             System.out.println("-----Login-----");
-            System.out.println("1. Nhập tên tài khoản: ");
+            System.out.println("Nhập tên tài khoản: ");
             String tk = checkInput.nextLine();
-            System.out.println("2. Nhập mật khẩu: ");
+            System.out.println("Nhập mật khẩu: ");
             String password1 = checkInput.nextLine();
             for (String s : validEmail) {
                 boolean isValid = email1.validate(s);
@@ -45,10 +41,14 @@ public class Login {
     }
     public static void loginReal() {
         while (inPut != 0) {
-            System.out.println("Bạn đã nhập sai tên tài khoản hoặc mật khẩu.");
-            System.out.println("Bạn có muốn nhập lại không?");
-            System.out.println("0. Thoát");
-            System.out.println("1. Nhập lại: ");
+            System.out.println("""
+             ----------------------------------------------------------
+            |       Bạn đã nhập sai tên tài khoản hoặc mật khẩu.       |
+            |       Bạn có muốn nhập lại không?                        |
+            |       0. Thoát                                           |
+            |       1. Nhập lại:                                       |
+             ----------------------------------------------------------
+            """);
             inPut = admin.checkInt(checkInput);
             switch (inPut) {
                 case 0:

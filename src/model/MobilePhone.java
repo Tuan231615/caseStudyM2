@@ -26,16 +26,16 @@ public class MobilePhone extends ElectronicDevice {
                 ", name='" + getName() + '\'' +
                 ", cost=" + getCost() +
                 ", color='" + getColor() + '\'' +
-                ", quantity=" + getQuantity() + '\'' +
+                ", quantity='" + getQuantity() + '\'' +
                 ", screenType='" + screenType + '\'' +
-                '}';
+                '}'+"\n";
     }
 
     @Override
     public double getRealMoney() {
-        if (getColor().equalsIgnoreCase("mau do")) {
+        if (getColor().equalsIgnoreCase("màu đỏ")) {
             return (getAmount() - (getAmount() * 0.1));
-        } else if (getColor().equalsIgnoreCase("mau den")) {
+        } else if (getColor().equalsIgnoreCase("màu đen")) {
             return (getAmount() - (getAmount() * 0.2));
         } else
             return 0;

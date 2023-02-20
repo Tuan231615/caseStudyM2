@@ -21,16 +21,23 @@ public class Client {
 
     public static void menuManage() {
         while (inPut != 0) {
-            System.out.println("------------------Menu của quản lý---------------------");
-            System.out.println("Your choise: ");
-            System.out.println("1. Danh sách sản phẩm: ");
-            System.out.println("2. Tổng tiền thanh toán: ");
-            System.out.println("3. Thêm sản phẩm: ");
-            System.out.println("4. Sửa sản phẩm: ");
-            System.out.println("5. Xoá sản phẩm: ");
-            System.out.println("6. tim kiem san pham: ");
-            System.out.println("10. Đăng xuất");
-            System.out.println("0. Thoát chương trình: ");
+            System.out.println("---------Menu của quản lý-----------");
+            System.out.println("""
+                     --------------------------------------
+                    |    Lựa chọn:                         |
+                    |    1.  Danh sách sản phẩm:           |
+                    |    2.  Tổng tiền thanh toáṇ(km):     |
+                    |    3.  Thêm sản phẩm:                |
+                    |    4.  Sửa sản phẩm:                 |
+                    |    5.  Xoá sản phẩm:                 |
+                    |    6.  Tìm kiếm sản phẩm:            |
+                    |    7.  Sắp xếp sản phẩm:             |
+                    |    8.  Tổng tiền trước khuyến mại    |
+                    |    10. Đăng xuất                     |
+                    |    0.  Thoát chương trình:           |  
+                     --------------------------------------
+                    """);
+            System.out.println("Mời bạn nhập:");
             inPut = admin.checkInt(checkInput);
             switch (inPut) {
                 case 1:
@@ -56,6 +63,12 @@ public class Client {
                 case 6:
                     admin.searchElement(checkInput);
                     break;
+                case 7:
+                    admin.sortElement();
+                    break;
+                case 8:
+                    System.out.println(admin.totalElectronicDeviceBeforeSale());
+                    break;
                 case 0:
 
                     System.exit(inPut);
@@ -69,13 +82,17 @@ public class Client {
 
     public static void menuStaff() {
         while (inPut != 0) {
-            System.out.println("------------------Menu nhan vien-----------------------");
-            System.out.println("Your choise: ");
-            System.out.println("1. Danh sách sản phẩm: ");
-            System.out.println("2. Tổng tiền sản phẩm: ");
-            System.out.println("3. Đăng xuất");
-            System.out.println("0. Thoát chương trình.");
-            System.out.println("Mời bạn nhập: ");
+            System.out.println("-----------Menu nhân viên------------");
+            System.out.println("""
+                     ----------------------------
+                    |   Lựa chọn:                |
+                    |   1. Danh sách sản phẩm:   |
+                    |   2. Tổng tiền sản phẩm:   |
+                    |   3. Đăng xuất.            |
+                    |   0. Thoát chương trình.   |
+                     ----------------------------
+                    """);
+
             inPut = admin.checkInt(checkInput);
             switch (inPut) {
                 case 1:

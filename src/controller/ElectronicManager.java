@@ -8,6 +8,7 @@ import storage.IReadWriteFile;
 import storage.ReadWriteFile;
 import views.Client;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -71,9 +72,17 @@ public class ElectronicManager {
         }
         return totalPriceFridgeSale;
     }
+    public double totalElectronicDeviceBeforeSale(){
+        double totalElectroniceDevice = 0;
+        for (ElectronicDevice e:
+             electronicDevices) {
+            totalElectroniceDevice += e.getAmount();
+        }
+        return totalElectroniceDevice;
+    }
 
     //-------------------------------------------//
-    //Tổng tiền các sản phẩm
+    //Tổng tiền các sản phẩm sau khuyến mãi
     public double priceElectronicDevice() {
         double priceElectronicDevice = 0;
         priceElectronicDevice += totalPriceFridge() + totalPricePc() + totalPriceMobilePhone();
@@ -95,7 +104,7 @@ public class ElectronicManager {
         for (ElectronicDevice e :
                 electronicDevices) {
             if (electronicDevices.size() == 0) {
-                System.out.println("không có j để xóa ");
+                System.out.println("không có gì để xóa ");
                 break;
             } else if (id.equals(e.getId())) {
                 electronicDevices.remove(e);
@@ -120,11 +129,23 @@ public class ElectronicManager {
             }
         }
         if (electronicDevices.size() == 0 || flag < 0) {
-            System.out.println("khong tim thay san pham");
+            System.out.println("Không tìm thấy sản phẩm");
         }
 
     }
-
+    //Sắp xếp sản phẩm
+    private void sortSort(){
+        electronicDevices.sort(new Comparator<ElectronicDevice>() {
+            @Override
+            public int compare(ElectronicDevice o1, ElectronicDevice o2) {
+                return (Integer.parseInt(o1.getId())) - (Integer.parseInt(o2.getId()));
+            }
+        });
+    }
+    public void sortElement(){
+        sortSort();
+        readWriteFile.writeToFile(electronicDevices);
+    }
     //Sửa theo tên sản phẩm
     public void editElement(Scanner scanner) {
         int flag = -1;
@@ -179,9 +200,13 @@ public class ElectronicManager {
             for (ElectronicDevice e :
                     electronicDevices) {
                 if (!id.equals(e.getId())) {
-                    System.out.println("Không tìm thấy sản phẩm cần sửa. Bạn có muốn nhập lại không?");
-                    System.out.println("10. Có, mời bạn nhập lại: ");
-                    System.out.println("11. Thoát ra menu.");
+                    System.out.println("""
+                     -----------------------------------------------------------------------
+                    |         Không tìm thấy sản phẩm cần sửa. Bạn có muốn nhập lại không?  |
+                    |         10. Có, mời bạn nhập lại:                                     |
+                    |         11. Thoát ra menu.                                            |
+                     -----------------------------------------------------------------------
+                    """);
                     int inPut = checkInt(scanner);
                     switch (inPut) {
                         case 10:
@@ -204,7 +229,7 @@ public class ElectronicManager {
         try {
             return Integer.parseInt(scanner.nextLine());
         } catch (Exception e) {
-            System.out.println("Nhap sai, mời ban nhap lai");
+            System.out.println("Nhập sai, mời bạn nhập lại: ");
         }
         return checkInt(scanner);
     }
@@ -213,7 +238,7 @@ public class ElectronicManager {
         try {
             return Double.parseDouble(scanner.nextLine());
         } catch (Exception e) {
-            System.out.println("Nhap sai, moi nhap lai");
+            System.out.println("Nhập sai, mời bạn nhập lại: ");
         }
         return checkDouble(scanner);
     }
@@ -232,7 +257,7 @@ public class ElectronicManager {
                     return id;
                 } else System.out.println("Mời bạn nhập id từ 0->9.");
             } catch (Exception e) {
-                System.out.println("Moi ban nhap id khac: ");
+                System.out.println("Mời bạn nhập id khác: ");
             }
         }
     }

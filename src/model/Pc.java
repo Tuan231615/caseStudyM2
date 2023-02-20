@@ -23,9 +23,9 @@ public class Pc extends ElectronicDevice{
                 ", name='" + getName() + '\'' +
                 ", cost=" + getCost() +
                 ", color='" + getColor() + '\'' +
-                ", quantity=" + getQuantity() + '\'' +
+                ", quantity='" + getQuantity() + '\'' +
                 ", card='" + card + '\'' +
-                '}';
+                '}'+"\n";
     }
 
     @Override
